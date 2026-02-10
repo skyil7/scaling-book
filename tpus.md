@@ -201,11 +201,11 @@ Host size refers to the topology of TPUs connected to a single host (e.g. TPU v5
 
 | Model       | ICI BW/link (one-way, bytes/s) | ICI BW/link (bidi, bytes/s) |
 | :---------- | :----------------------------: | :-------------------------: |
-| **TPU v3**  |              1e11              |            2e11             |
-| **TPU v4p** |             4.5e10             |            9e10             |
-| **TPU v5p** |              9e10              |           1.8e11            |
-| **TPU v5e** |             4.5e10             |            9e10             |
-| **TPU v6e** |              9e10              |           1.8e11            |
+| **TPU v3**  |             1.0e11             |           2.0e11            |
+| **TPU v4p** |             4.5e10             |           9.0e10            |
+| **TPU v5p** |             9.0e10             |           1.8e11            |
+| **TPU v5e** |             4.5e10             |           9.0e10            |
+| **TPU v6e** |             9.0e10             |           1.8e11            |
 
 We include both one-way (unidirectional) bandwidth and bidi (bidirectional) bandwidth since unidirectional bandwidth is more true to the hardware but bidirectional bandwidth occurs more often in equations involving a full ring.<d-footnote>By bidi (bidirectional) bandwidth we mean the total bytes that can be sent along a single link in both directions, or equally, the total number of outgoing bytes from a single TPU along a particular axis, assuming we can use both links efficiently. This is true when we have a functioning ring, AKA when we have a wraparound connection on the particular axis. This occurs on inference chips when we have a full 16 axis, or on training chips (v*p) when we have an axis which is a multiple of 4. We prefer to use the bidirectional bandwidth because it appears frequently in calculations involving bidirectional comms.</d-footnote>
 
@@ -260,7 +260,7 @@ $$B > \frac{9.2 \times 10^{14}}{1.5 \times 10^{10}} \simeq 61{,}000$$
 
 $$\max\{T_{\text{math}}, T_{\text{comms}}\} = \max\left\{ \frac{6.7 \times 10^{7} + 2 \times 10^{4} \cdot B}{8.1 \times 10^{11}}, \frac{1.3 \times 10^{8} \cdot B}{3.94 \times 10^{14}} \right\}$$
 
-We'll be FLOPs-bound when $\frac{6.7 \times 10^{7} + 2 \times 10^{4} \cdot B}{8.1 \times 10^{11}} < \frac{1.3 \times 10^{8} \cdot B}{3.94 \times 10^{14}}$, or equivalently, $B > 271$. This is slightly larger than the 240 number we derive below because we factor in the full impact of $D$ and $F$.
+We'll be FLOPs-bound when $\frac{6.7 \times 10^{7} + 2 \times 10^{4} \cdot B}{8.1 \times 10^{11}} < \frac{1.3 \times 10^{8} \cdot B}{3.94 \times 10^{14}}$, or equivalently, $B > 271$. This is slightly larger than the 240 number we derive in [Section 1](../roofline) because we factor in the full impact of $D$ and $F$.
 
 (2) If instead we are loading from VMEM, let's consider VMEM bandwidth to the MXU as 22 times the HBM $\leftrightarrow$ VMEM bandwidth. This turns our data loading denominator from 8.1e11 to 1.78e13, and we get $B > 11$. Note that in practice, we cannot dedicate all of our VMEM bandwidth to loading $W$, so in practice it will be closer to 20.
 
