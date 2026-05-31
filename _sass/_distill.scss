@@ -31,6 +31,113 @@ d-article d-byline a {
   }
 }
 
+.language-switcher-toggle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.language-switcher-menu {
+  min-width: 4.5rem;
+}
+
+.language-switcher-menu .dropdown-item {
+  color: var(--global-text-color) !important;
+  display: block;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  padding: 0.25rem 1.5rem !important;
+  text-align: center;
+}
+
+.language-switcher-menu .dropdown-item.active {
+  background: var(--global-code-bg-color);
+  color: var(--global-text-color);
+}
+
+.translation-credit {
+  border-top: 1px solid var(--global-divider-color);
+  color: var(--global-text-color);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  margin: -0.5rem auto 1.75rem;
+  width: calc(100% - 2rem);
+  max-width: 704px;
+  padding: 1rem 0 0;
+}
+
+.translation-credit-grid {
+  display: grid;
+  column-gap: 32px;
+  grid-template-columns: repeat(4, 152px);
+}
+
+.translation-credit-translators {
+  grid-column: 1;
+}
+
+.translation-credit-reviewers {
+  grid-column: 2;
+}
+
+.translation-credit-date {
+  grid-column: 4;
+}
+
+.translation-credit h3 {
+  color: var(--global-text-color) !important;
+  font-size: 0.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.translation-credit-date h3 {
+  font-weight: 400;
+}
+
+.translation-credit p {
+  color: var(--global-text-color);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.translation-credit a {
+  color: var(--global-text-color) !important;
+}
+
+@media (max-width: 575px) {
+  .translation-credit {
+    margin-top: 0;
+  }
+
+  .translation-credit-grid {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
+
+  .translation-credit-translators,
+  .translation-credit-reviewers,
+  .translation-credit-date {
+    grid-column: 1;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .translation-credit-grid {
+    column-gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .translation-credit-date {
+    grid-column: 3;
+  }
+}
+
 d-article {
   border-top-color: var(--global-divider-color) !important;
 

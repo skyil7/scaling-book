@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="{{ page.lang | default: site.lang }}">
 
 <head>
   {% include head.liquid %}
@@ -81,6 +81,7 @@
     {% if page.authors %}
     <d-byline></d-byline>
     {% endif %}
+    {% include translation-credit.liquid %}
 
     <d-article>
       {% if page.toc %}

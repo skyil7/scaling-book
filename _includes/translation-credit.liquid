@@ -1,0 +1,38 @@
+{% if page.translation %}
+  <div class="translation-credit">
+    <div class="translation-credit-grid">
+      <div class="translation-credit-item translation-credit-translators">
+        <h3>Translator</h3>
+        <p>
+          {% for translator in page.translation.translators %}
+            {% if translator.url %}<a href="{{ translator.url }}">{{ translator.name }}</a>{% else %}{{ translator.name }}{% endif %}{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </p>
+      </div>
+      <div class="translation-credit-item translation-credit-reviewers">
+        <h3>Reviewer</h3>
+        <p>
+          {% if page.translation.reviewers %}
+            {% for reviewer in page.translation.reviewers %}
+              {% if reviewer.url %}<a href="{{ reviewer.url }}">{{ reviewer.name }}</a>{% else %}{{ reviewer.name }}{% endif %}{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+          {% else %}
+            Not yet reviewed
+          {% endif %}
+        </p>
+      </div>
+      <div class="translation-credit-item translation-credit-date">
+        <h3>Translated</h3>
+        <p>
+          {% if page.translation.date %}
+            {% assign translated_month = page.translation.date | date: "%b" %}
+            {% unless translated_month == "May" %}{% assign translated_month = translated_month | append: "." %}{% endunless %}
+            {{ translated_month }} {{ page.translation.date | date: "%-d, %Y" }}
+          {% else %}
+            Unknown
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}

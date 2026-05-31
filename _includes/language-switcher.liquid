@@ -1,0 +1,42 @@
+{% assign translations = site.pages | where: "translation_key", page.translation_key | sort: "lang" %}
+{% if page.translation_key and translations.size > 1 %}
+  {% if include.location == "header" %}
+    <li class="nav-item dropdown language-switcher-nav">
+      <a
+        class="nav-link dropdown-toggle language-switcher-toggle"
+        href="#"
+        id="languageDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        {{ page.lang | default: site.lang | upcase }}
+      </a>
+      <div class="dropdown-menu dropdown-menu-right language-switcher-menu" aria-labelledby="languageDropdown">
+        {% for translation in translations %}
+          {% assign translation_lang = translation.lang | default: site.lang %}
+          {% if translation.url == page.url %}
+            <span class="dropdown-item active language-switcher-current" aria-current="true">{{ translation_lang | upcase }}</span>
+          {% else %}
+            <a class="dropdown-item" href="{{ translation.url | relative_url }}">{{ translation_lang | upcase }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </li>
+  {% else %}
+    <div class="language-switcher">
+      <span class="language-switcher-label">
+        {% if page.lang == "ko" %}언어{% else %}Languages{% endif %}
+      </span>
+      {% for translation in translations %}
+        {% assign translation_lang = translation.lang | default: site.lang %}
+        {% if translation.url == page.url %}
+          <span class="language-switcher-current" aria-current="true">{{ translation_lang | upcase }}</span>
+        {% else %}
+          <a href="{{ translation.url | relative_url }}">{{ translation_lang | upcase }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endif %}

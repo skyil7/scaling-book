@@ -1,5 +1,7 @@
 ---
 layout: distill
+lang: en
+translation_key: index
 title: "How to Scale Your Model"
 subtitle: "A Systems View of LLMs on TPUs"
 # permalink: /main/

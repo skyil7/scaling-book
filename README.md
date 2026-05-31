@@ -30,6 +30,57 @@ Once you have run jekyll serve successfully, the book will be available at `http
 
 The Github Pages deployment is handled by a GitHub Action that runs automatically on new commits to the main branch.
 
+### Adding Translations
+
+Translated pages live under a language-specific directory while the original English pages keep their existing URLs. For example, a Korean translation of `training.md` should be added as:
+
+```text
+training.md
+ko/training.md
+```
+
+Add a shared `translation_key` to the original English page frontmatter:
+
+```yaml
+lang: en
+translation_key: training
+```
+
+The translated page should use the same `translation_key`, set its language, and include translation metadata:
+
+```yaml
+---
+layout: distill
+lang: ko
+translation_key: training
+permalink: /ko/training/
+title: "훈련을 위해 Transformer를 병렬화하는 법"
+description: "..."
+date: 2025-02-04
+
+translation:
+  date: 2026-05-29
+  translators:
+    - name: Translator Name
+      url: https://example.com
+  reviewers:
+    - name: Reviewer Name
+      url: https://example.com
+---
+```
+
+If a translation has not been reviewed yet, omit `reviewers`; the page will show it as not yet reviewed. Keep the original Markdown structure as much as possible, including figure includes, `<d-footnote>`, `<d-cite>`, math, and bibliography references.
+
+For links to other pages in this book, point to the translated page when it exists. If it does not exist yet, point back to the original English page with a relative parent link, such as `../roofline` or `../conclusion#further-reading`.
+
+Before sending a translation PR, run:
+
+```bash
+bundle exec jekyll build
+```
+
+Then check the translated page in a browser. Confirm that the language dropdown links between the original and translation, the translator/reviewer/date block appears under the authors, and figures, citations, footnotes, math, and internal links still work.
+
 ### Generating a Single Document
 
 To combine all chapters into a single markdown file with standardized formatting:
